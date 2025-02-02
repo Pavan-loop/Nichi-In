@@ -6,7 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.io.FileReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -37,6 +39,7 @@ public class ReadCsvService {
                         .ffmcap(record[8])
                         .nm52wh(record[9])
                         .nm52wl(record[10])
+                        .date(getDate())
                         .build();
 
                 stocks.add(stk);
@@ -50,5 +53,10 @@ public class ReadCsvService {
             System.out.println(str);
         }
         return stocks;
+    }
+
+    private String getDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+        return dateFormat.format(new Date()).toLowerCase();
     }
 }

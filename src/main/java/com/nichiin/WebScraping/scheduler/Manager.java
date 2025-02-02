@@ -18,7 +18,8 @@ public class Manager {
     private final ReadCsvService readCsvService;
     private final ProcessToDatabase processToDatabase;
 
-    @Scheduled(cron = "0 0 18 * * 1-5")
+
+    @Scheduled(cron = "0 0 18 * * ?")
     public void startTheProcess() {
         String filePath = downloadCsvService.scrapeTableData();
         List<Stocks> stocks = readCsvService.readCsv(filePath);

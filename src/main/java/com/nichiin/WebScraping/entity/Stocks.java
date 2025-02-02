@@ -28,4 +28,5 @@ public class Stocks {
     private String ffmcap;
     private String nm52wh;
     private String nm52wl;
+    private String date;
 }
