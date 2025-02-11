@@ -4,6 +4,7 @@ import com.nichiin.WebScraping.entity.Stocks;
 import com.nichiin.WebScraping.service.DownloadCsvService;
 import com.nichiin.WebScraping.service.ProcessToDatabase;
 import com.nichiin.WebScraping.service.ReadCsvService;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -19,7 +20,8 @@ public class Manager {
     private final ProcessToDatabase processToDatabase;
 
 
-    @Scheduled(cron = "0 0 18 * * ?")
+    @PostConstruct
+//    @Scheduled(cron = "0 0 18 * * ?")
     public void startTheProcess() {
         String filePath = downloadCsvService.scrapeTableData();
         List<Stocks> stocks = readCsvService.readCsv(filePath);

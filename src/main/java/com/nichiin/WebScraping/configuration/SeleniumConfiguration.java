@@ -3,6 +3,7 @@ package com.nichiin.WebScraping.configuration;
 import jakarta.annotation.PostConstruct;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,19 +14,29 @@ import java.util.Map;
 @Configuration
 public class SeleniumConfiguration {
 
-    private static final String CUSTOM_DOWNLOAD_PATH = System.getProperty("user.home") + "/Desktop/Nichi-in Project/csvHub";
+    @Value("${application.custom.download.path}")
+    private String customPath;
+
+    private String customDownloadPath;
 
     @PostConstruct
-    void postController() {
-        System.setProperty("webdriver.chrome.driver", "/Users/pavanp/Desktop/Nichi-in Project/testing/chromedriver");
+    public void init() {
+        this.customDownloadPath = System.getProperty("user.home") + customPath;
     }
 
     @Bean
     public ChromeDriver driver() {
 
+        // Ensure customDownloadPath is set correctly
+        if (customDownloadPath == null || customDownloadPath.isEmpty()) {
+            throw new IllegalStateException("Custom download path is not set correctly.");
+        }
+
+        System.out.println("Download path: " + customDownloadPath);
+
         Map<String, Object> prefs = new HashMap<>();
-        prefs.put("download.default_directory", CUSTOM_DOWNLOAD_PATH);
-        prefs.put("download.prompt_for_download", false); // Disable the download prompt
+        prefs.put("download.default_directory", customDownloadPath);
+        prefs.put("download.prompt_for_download", false);
         prefs.put("safebrowsing.enabled", true);
 
         ChromeOptions options = new ChromeOptions();

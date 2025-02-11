@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -18,10 +19,17 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class DownloadCsvService {
 
+    @Value("${application.custom.download.path}")
+    private String customPath;
 
     private static final String URL = "https://www.nseindia.com/market-data/pre-open-market-cm-and-emerge-market";
     private final ChromeDriver driver;
-    private static final String DOWNLOAD_PATH = System.getProperty("user.home") + "/Desktop/Nichi-in Project/csvHub";
+    private String DOWNLOAD_PATH;
+
+    @PostConstruct
+    public void init() {
+        this.DOWNLOAD_PATH = System.getProperty("user.home") + customPath;
+    }
 
     public String scrapeTableData() {
         try {
@@ -38,7 +46,7 @@ public class DownloadCsvService {
         return "";
     }
 
-    private String generateFileName() {
+    public static String generateFileName() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
         String dateStr = dateFormat.format(new Date()).toLowerCase();
         return "MW-Pre-Open-Market-" + dateStr + ".csv";

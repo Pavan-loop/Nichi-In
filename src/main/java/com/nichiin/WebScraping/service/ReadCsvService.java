@@ -28,7 +28,7 @@ public class ReadCsvService {
                     continue;
                 }
                 var stk = Stocks.builder()
-                        .stockName(record[0])
+                        .symbol(record[0])
                         .prev_close(record[1])
                         .iep(record[2])
                         .chng(record[3])
@@ -39,7 +39,9 @@ public class ReadCsvService {
                         .ffmcap(record[8])
                         .nm52wh(record[9])
                         .nm52wl(record[10])
-                        .date(getDate())
+                        .dt(getDateTime().substring(0,8))
+                        .updateSource("autoscript")
+                        .updatetime(getDateTime())
                         .build();
 
                 stocks.add(stk);
@@ -55,8 +57,8 @@ public class ReadCsvService {
         return stocks;
     }
 
-    private String getDate() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+    private String getDateTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd HH:mm:ss");
         return dateFormat.format(new Date()).toLowerCase();
     }
 }

@@ -1,32 +1,47 @@
 package com.nichiin.WebScraping.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
+@IdClass(StockId.class)
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Table(name = "Nifty50IndexSummary")
 public class Stocks {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String stockName;
+    @Column(name = "dt")
+    private String dt;
+    @Id
+    @Column(name = "symbol")
+    private String symbol;
+    @Column(name = "preclose")
     private String prev_close;
+    @Column(name = "iep")
     private String iep;
+    @Column(name = "chng")
     private String chng;
+    @Column(name = "chngprc")
     private String perChng;
+    @Column(name = "final")
     private String finaal;
+    @Column(name = "quantity")
     private String finalQuality;
+    @Column(name = "volumn")
     private String value;
+    @Column(name = "cap")
     private String ffmcap;
+    @Column(name = "price52wh")
     private String nm52wh;
+    @Column(name = "price52wl")
     private String nm52wl;
-    private String date;
+    @Column(name = "updatesource")
+    private String updateSource;
+    @Column(name = "updatetime")
+    private String updatetime;
 }
