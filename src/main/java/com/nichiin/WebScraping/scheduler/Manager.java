@@ -6,7 +6,6 @@ import com.nichiin.WebScraping.service.ProcessToDatabase;
 import com.nichiin.WebScraping.service.ReadCsvService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -21,8 +20,8 @@ public class Manager {
 
 
     @PostConstruct
-//    @Scheduled(cron = "0 0 18 * * ?")
     public void startTheProcess() {
+        System.out.println("Main method is called");
         String filePath = downloadCsvService.scrapeTableData();
         List<Stocks> stocks = readCsvService.readCsv(filePath);
         processToDatabase.addToDatabase(stocks);

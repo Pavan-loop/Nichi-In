@@ -15,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReadCsvService {
     public List<Stocks> readCsv(String filePath) {
+        System.out.println("Reading CSV file");
         List<Stocks> stocks = new ArrayList<>();
 
         try(CSVReader reader = new CSVReader(new FileReader(filePath))) {
@@ -41,7 +42,7 @@ public class ReadCsvService {
                         .nm52wl(record[10])
                         .dt(getDateTime().substring(0,8))
                         .updateSource("autoscript")
-                        .updatetime(getDateTime())
+                        .updateTime(getDateTime())
                         .build();
 
                 stocks.add(stk);

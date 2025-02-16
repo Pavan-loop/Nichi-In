@@ -32,6 +32,7 @@ public class DownloadCsvService {
     }
 
     public String scrapeTableData() {
+        System.out.println("Downloading is in process");
         try {
             driver.get(URL);
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));

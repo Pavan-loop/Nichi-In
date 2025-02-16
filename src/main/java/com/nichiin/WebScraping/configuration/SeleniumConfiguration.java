@@ -26,8 +26,6 @@ public class SeleniumConfiguration {
 
     @Bean
     public ChromeDriver driver() {
-
-        // Ensure customDownloadPath is set correctly
         if (customDownloadPath == null || customDownloadPath.isEmpty()) {
             throw new IllegalStateException("Custom download path is not set correctly.");
         }
@@ -43,6 +41,10 @@ public class SeleniumConfiguration {
         options.addArguments("--disable-blink-features=AutomationControlled");
         options.setExperimentalOption("excludeSwitches", List.of("enable-automation"));
         options.setExperimentalOption("prefs", prefs);
+//        options.addArguments("disable-infobars");
+//        options.addArguments("--headless");
+//        options.addArguments("--window-size=1325x744");
+        System.out.println("end");
         return new ChromeDriver(options);
     }
 }

@@ -14,6 +14,7 @@ public class ProcessToDatabase {
     private final StockRepository stockRepository;
 
     public void addToDatabase(List<Stocks> stocks) {
+        System.out.println("Processing to database");
         stockRepository.saveAll(stocks);
     }
 }

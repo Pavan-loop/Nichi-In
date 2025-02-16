@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.nichiin</groupId>
 	<artifactId>WebScraping</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.7-SNAPSHOT</version>
 	<name>WebScraping</name>
 	<description>WebScraping project</description>
 	<url/>
@@ -61,6 +61,7 @@
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
+			<version>4.28.1</version>
 		</dependency>
 
 		<dependency>

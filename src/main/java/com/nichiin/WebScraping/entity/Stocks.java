@@ -43,5 +43,5 @@ public class Stocks {
     @Column(name = "updatesource")
     private String updateSource;
     @Column(name = "updatetime")
-    private String updatetime;
+    private String updateTime;
 }
