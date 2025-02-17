@@ -35,6 +35,7 @@ public class DownloadCsvService {
         System.out.println("Downloading is in process");
         try {
             driver.get(URL);
+            System.out.println("Header: " + driver.getTitle());
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
             WebElement downloadButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("dwldcsv")));
             downloadButton.click();

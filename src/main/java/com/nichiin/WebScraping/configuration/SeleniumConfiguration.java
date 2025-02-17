@@ -41,9 +41,8 @@ public class SeleniumConfiguration {
         options.addArguments("--disable-blink-features=AutomationControlled");
         options.setExperimentalOption("excludeSwitches", List.of("enable-automation"));
         options.setExperimentalOption("prefs", prefs);
-//        options.addArguments("disable-infobars");
-//        options.addArguments("--headless");
-//        options.addArguments("--window-size=1325x744");
+        options.addArguments("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36");
+        options.addArguments("--headless");
         System.out.println("end");
         return new ChromeDriver(options);
     }
