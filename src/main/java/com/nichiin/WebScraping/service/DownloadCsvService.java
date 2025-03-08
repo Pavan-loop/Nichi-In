@@ -50,12 +50,13 @@ public class DownloadCsvService {
 
     public static String generateFileName() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
-        String dateStr = dateFormat.format(new Date()).toLowerCase();
+        String dateStr = dateFormat.format(new Date());
         return "MW-Pre-Open-Market-" + dateStr + ".csv";
     }
 
     public String waitForFileDownload(String filename) {
         File file = new File(DOWNLOAD_PATH, filename);
+        System.out.println(file.getAbsoluteFile());
         int attempt = 0;
         while (attempt < 20) {
             if (file.exists()) {

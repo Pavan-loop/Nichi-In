@@ -6,11 +6,11 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.4.2</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
 	<groupId>com.nichiin</groupId>
 	<artifactId>WebScraping</artifactId>
-	<version>0.0.7-SNAPSHOT</version>
+	<version>3.0.2-Final</version>
 	<name>WebScraping</name>
 	<description>WebScraping project</description>
 	<url/>
@@ -35,11 +35,6 @@
 	</properties>
 
 	<dependencies>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
