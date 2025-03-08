@@ -1,9 +1,9 @@
 package com.nichiin.WebScraping.configuration;
 
 import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,21 +12,21 @@ import java.util.List;
 import java.util.Map;
 
 @Configuration
+@RequiredArgsConstructor
 public class SeleniumConfiguration {
 
-    @Value("${application.custom.download.path}")
-    private String customPath;
-
+    private final XMLMapperConfiguration xmlMapperConfiguration;
     private String customDownloadPath;
 
     @PostConstruct
     public void init() {
+        String customPath = xmlMapperConfiguration.getCustomCsvPath();
         this.customDownloadPath = System.getProperty("user.home") + customPath;
     }
 
     @Bean
     public ChromeDriver driver() {
-        if (customDownloadPath == null || customDownloadPath.isEmpty()) {
+        if (customDownloadPath.isEmpty()) {
             throw new IllegalStateException("Custom download path is not set correctly.");
         }
 

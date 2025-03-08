@@ -1,5 +1,6 @@
 package com.nichiin.WebScraping.service;
 
+import com.nichiin.WebScraping.configuration.XMLMapperConfiguration;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.openqa.selenium.By;
@@ -7,7 +8,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -18,9 +18,7 @@ import java.util.Date;
 @Service
 @RequiredArgsConstructor
 public class DownloadCsvService {
-
-    @Value("${application.custom.download.path}")
-    private String customPath;
+    private final XMLMapperConfiguration xmlMapperConfiguration;
 
     private static final String URL = "https://www.nseindia.com/market-data/pre-open-market-cm-and-emerge-market";
     private final ChromeDriver driver;
@@ -28,6 +26,7 @@ public class DownloadCsvService {
 
     @PostConstruct
     public void init() {
+        String customPath = xmlMapperConfiguration.getCustomCsvPath();
         this.DOWNLOAD_PATH = System.getProperty("user.home") + customPath;
     }
 
