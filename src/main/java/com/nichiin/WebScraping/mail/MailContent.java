@@ -1,0 +1,67 @@
+package com.nichiin.WebScraping.mail;
+
+import com.nichiin.WebScraping.configuration.XMLMapperConfiguration;
+import jakarta.mail.internet.MimeMessage;
+import lombok.RequiredArgsConstructor;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Component;
+
+@Component
+@RequiredArgsConstructor
+public class MailContent {
+
+    private final JavaMailSender javaMailSender;
+    private final XMLMapperConfiguration xmlMapperConfiguration;
+
+    public void sendSuccessMail() {
+        try {
+
+            MimeMessage message = javaMailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
+            helper.setTo(xmlMapperConfiguration.getMailTo());
+            helper.setCc(xmlMapperConfiguration.getMailCc());
+            helper.setSubject("Scraper Update");
+            helper.setText("The program successfully installed the CSV file and processed the data into the database.");
+
+            javaMailSender.send(message);
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void sendDownloadFailedMail() {
+        try {
+
+            MimeMessage message = javaMailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
+            helper.setTo(xmlMapperConfiguration.getMailTo());
+            helper.setCc(xmlMapperConfiguration.getMailCc());
+            helper.setSubject("Scraper Update");
+            helper.setText("Program Failed to download csv from website");
+
+            javaMailSender.send(message);
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void sendDatabaseFailedMail() {
+        try {
+
+            MimeMessage message = javaMailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
+            helper.setTo(xmlMapperConfiguration.getMailTo());
+            helper.setCc(xmlMapperConfiguration.getMailCc());
+            helper.setSubject("Scraper Update");
+            helper.setText("Program Failed to update the data into database");
+
+            javaMailSender.send(message);
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}

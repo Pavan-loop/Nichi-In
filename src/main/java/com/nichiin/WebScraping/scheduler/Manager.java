@@ -23,8 +23,10 @@ public class Manager {
     public void startTheProcess() {
         System.out.println("Main method is called");
         String filePath = downloadCsvService.scrapeTableData();
-        List<Stocks> stocks = readCsvService.readCsv(filePath);
-        processToDatabase.addToDatabase(stocks);
+        if (!filePath.isEmpty()) {
+            List<Stocks> stocks = readCsvService.readCsv(filePath);
+            processToDatabase.addToDatabase(stocks);
+        }
     }
 
 }

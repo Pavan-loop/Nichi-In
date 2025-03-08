@@ -1,6 +1,7 @@
 package com.nichiin.WebScraping.service;
 
 import com.nichiin.WebScraping.configuration.XMLMapperConfiguration;
+import com.nichiin.WebScraping.mail.MailContent;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.openqa.selenium.By;
@@ -23,6 +24,7 @@ public class DownloadCsvService {
     private static final String URL = "https://www.nseindia.com/market-data/pre-open-market-cm-and-emerge-market";
     private final ChromeDriver driver;
     private String DOWNLOAD_PATH;
+    private final MailContent mailContent;
 
     @PostConstruct
     public void init() {
@@ -43,6 +45,7 @@ public class DownloadCsvService {
 
         }catch (Exception e) {
             System.out.println(e.getMessage());
+            mailContent.sendDownloadFailedMail();
         }
         return "";
     }
