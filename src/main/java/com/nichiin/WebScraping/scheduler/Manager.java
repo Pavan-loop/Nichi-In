@@ -6,11 +6,13 @@ import com.nichiin.WebScraping.service.ProcessToDatabase;
 import com.nichiin.WebScraping.service.ReadCsvService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class Manager {
 
     private final DownloadCsvService downloadCsvService;
@@ -20,7 +22,7 @@ public class Manager {
 
     @PostConstruct
     public void startTheProcess() {
-        System.out.println("Main method is called");
+        log.info("Main method is called");
         String filePath = downloadCsvService.scrapeTableData();
         if (!filePath.isEmpty()) {
             List<Stocks> stocks = readCsvService.readCsv(filePath);

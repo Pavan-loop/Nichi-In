@@ -3,7 +3,9 @@ package com.nichiin.WebScraping.service;
 import com.nichiin.WebScraping.configuration.XMLMapperConfiguration;
 import com.nichiin.WebScraping.mail.MailContent;
 import jakarta.annotation.PostConstruct;
+import jakarta.mail.Header;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -18,6 +20,7 @@ import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class DownloadCsvService {
     private final XMLMapperConfiguration xmlMapperConfiguration;
     private static final String URL = "https://www.nseindia.com/market-data/pre-open-market-cm-and-emerge-market";
@@ -32,10 +35,11 @@ public class DownloadCsvService {
     }
 
     public String scrapeTableData() {
-        System.out.println("Downloading is in process");
+        log.info("Downloading in progress");
         try {
             driver.get(URL);
             System.out.println("Header: " + driver.getTitle());
+            log.info("Header: {}", driver.getTitle());
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
             WebElement downloadButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("dwldcsv")));
             downloadButton.click();
@@ -57,11 +61,10 @@ public class DownloadCsvService {
 
     public String waitForFileDownload(String filename) {
         File file = new File(DOWNLOAD_PATH, filename);
-        System.out.println(file.getAbsoluteFile());
         int attempt = 0;
         while (attempt < 20) {
             if (file.exists()) {
-                System.out.println("File downloaded successfully: " + file.getAbsoluteFile());
+                log.info("File downloaded successfully: {}", file.getAbsoluteFile());
                 return file.getAbsoluteFile().toString();
             }
             attempt++;
@@ -69,8 +72,7 @@ public class DownloadCsvService {
                 Thread.sleep(500);
             } catch (InterruptedException ignored) {}
         }
-        System.out.println("Download failed or took too long.");
-
+        log.error("Download failed or took too long.");
         return "nun";
     }
 

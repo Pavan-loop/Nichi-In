@@ -3,6 +3,7 @@ package com.nichiin.WebScraping.service;
 import com.nichiin.WebScraping.entity.Stocks;
 import com.opencsv.CSVReader;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.FileReader;
@@ -13,9 +14,10 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ReadCsvService {
     public List<Stocks> readCsv(String filePath) {
-        System.out.println("Reading CSV file");
+        log.info("Reading CSV File");
         List<Stocks> stocks = new ArrayList<>();
 
         try(CSVReader reader = new CSVReader(new FileReader(filePath))) {
@@ -49,7 +51,7 @@ public class ReadCsvService {
             }
 
         }catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.error("Error while reading csv file: {}", e.getMessage());
         }
 
         for (Stocks str : stocks) {

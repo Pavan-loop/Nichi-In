@@ -2,6 +2,7 @@ package com.nichiin.WebScraping.configuration;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +14,7 @@ import java.util.Map;
 
 @Configuration
 @RequiredArgsConstructor
+@Slf4j
 public class SeleniumConfiguration {
 
     private final XMLMapperConfiguration xmlMapperConfiguration;
@@ -29,9 +31,7 @@ public class SeleniumConfiguration {
         if (customDownloadPath.isEmpty()) {
             throw new IllegalStateException("Custom download path is not set correctly.");
         }
-
-        System.out.println("Download path: " + customDownloadPath);
-
+        log.info("Download path: {}",  customDownloadPath);
         Map<String, Object> prefs = new HashMap<>();
         prefs.put("download.default_directory", customDownloadPath);
         prefs.put("download.prompt_for_download", false);
@@ -47,7 +47,6 @@ public class SeleniumConfiguration {
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--disable-gpu");
         options.addArguments("--window-size=1920,1080");
-        System.out.println("end");
         return new ChromeDriver(options);
     }
 }

@@ -8,8 +8,6 @@ import org.w3c.dom.Element;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
-import java.util.Collections;
-import java.util.List;
 
 @Component
 public class XMLMapperConfiguration {

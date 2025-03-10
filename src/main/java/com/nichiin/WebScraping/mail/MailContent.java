@@ -3,6 +3,7 @@ package com.nichiin.WebScraping.mail;
 import com.nichiin.WebScraping.configuration.XMLMapperConfiguration;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class MailContent {
 
     private final JavaMailSender javaMailSender;
@@ -31,7 +33,7 @@ public class MailContent {
 
             javaMailSender.send(message);
         }catch (Exception e) {
-            System.out.println(e.getMessage());
+           log.error("Error while send mail: {}", e.getMessage());
         }
     }
 
@@ -49,7 +51,7 @@ public class MailContent {
 
             javaMailSender.send(message);
         }catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.error("Error while send mail: {}", e.getMessage());
         }
     }
 
@@ -67,7 +69,7 @@ public class MailContent {
 
             javaMailSender.send(message);
         }catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.error("Error while send mail: {}", e.getMessage());
         }
     }
 }
