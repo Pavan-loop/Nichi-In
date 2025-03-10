@@ -37,7 +37,7 @@ public class DownloadCsvService {
             driver.get(URL);
             System.out.println("Header: " + driver.getTitle());
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-            WebElement downloadButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("dwdcsv")));
+            WebElement downloadButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("dwldcsv")));
             downloadButton.click();
             String filename = generateFileName();
             return waitForFileDownload(filename);
