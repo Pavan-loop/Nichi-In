@@ -20,7 +20,6 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class DownloadCsvService {
     private final XMLMapperConfiguration xmlMapperConfiguration;
-
     private static final String URL = "https://www.nseindia.com/market-data/pre-open-market-cm-and-emerge-market";
     private final ChromeDriver driver;
     private String DOWNLOAD_PATH;
@@ -38,7 +37,7 @@ public class DownloadCsvService {
             driver.get(URL);
             System.out.println("Header: " + driver.getTitle());
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-            WebElement downloadButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("dwldcsv")));
+            WebElement downloadButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("dwdcsv")));
             downloadButton.click();
             String filename = generateFileName();
             return waitForFileDownload(filename);

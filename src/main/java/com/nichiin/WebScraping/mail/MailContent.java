@@ -7,6 +7,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 public class MailContent {
@@ -17,11 +19,13 @@ public class MailContent {
     public void sendSuccessMail() {
         try {
 
+            List<String> email = List.of(xmlMapperConfiguration.getMailCc().split(","));
+
             MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
             helper.setTo(xmlMapperConfiguration.getMailTo());
-            helper.setCc(xmlMapperConfiguration.getMailCc());
+            helper.setCc(email.toArray(new String[0]));
             helper.setSubject("Scraper Update");
             helper.setText("The program successfully installed the CSV file and processed the data into the database.");
 
@@ -34,11 +38,12 @@ public class MailContent {
     public void sendDownloadFailedMail() {
         try {
 
+            List<String> email = List.of(xmlMapperConfiguration.getMailCc().split(","));
             MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
             helper.setTo(xmlMapperConfiguration.getMailTo());
-            helper.setCc(xmlMapperConfiguration.getMailCc());
+            helper.setCc(email.toArray(new String[0]));
             helper.setSubject("Scraper Update");
             helper.setText("Program Failed to download csv from website");
 
@@ -50,12 +55,13 @@ public class MailContent {
 
     public void sendDatabaseFailedMail() {
         try {
+            List<String> email = List.of(xmlMapperConfiguration.getMailCc().split(","));
 
             MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
             helper.setTo(xmlMapperConfiguration.getMailTo());
-            helper.setCc(xmlMapperConfiguration.getMailCc());
+            helper.setCc(email.toArray(new String[0]));
             helper.setSubject("Scraper Update");
             helper.setText("Program Failed to update the data into database");
 

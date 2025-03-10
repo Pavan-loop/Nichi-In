@@ -7,7 +7,6 @@ import com.nichiin.WebScraping.service.ReadCsvService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
 import java.util.List;
 
 @Component
