@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.nichiin</groupId>
 	<artifactId>WebScraping</artifactId>
-	<version>3.0.2-Check</version>
+	<version>3.0.3-EmailUpdate</version>
 	<name>WebScraping</name>
 	<description>WebScraping project</description>
 	<url/>
