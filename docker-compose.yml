@@ -1,0 +1,21 @@
+services:
+  mysql:
+    image: mysql
+    container_name: madara
+    restart: always
+    environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_DATABASE: mydatabase
+        MYSQL_USER: pavanp
+        MYSQL_PASSWORD: Pavan@2001
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - my_network
+volumes:
+  mysql_data:
+
+networks:
+  my_network:

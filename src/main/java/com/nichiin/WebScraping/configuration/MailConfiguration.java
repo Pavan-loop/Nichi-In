@@ -24,8 +24,8 @@ public class MailConfiguration {
 
         Properties props = sender.getJavaMailProperties();
         props.put("mail.transport.protocol", xmlMapperConfiguration.getMailProtocol());
-        props.put("mail.smtp.auth", xmlMapperConfiguration.getMailAuth());
-        props.put("mail.smtp.starttls.enable", xmlMapperConfiguration.getMailEnable());
+        props.put("mail.smtp.auth", xmlMapperConfiguration.isMailAuth());
+        props.put("mail.smtp.starttls.enable", xmlMapperConfiguration.isMailEnable());
         props.put("mail.debug", "true");
 
         return sender;

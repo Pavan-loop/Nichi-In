@@ -27,8 +27,8 @@ public class MailContent {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
             helper.setTo(xmlMapperConfiguration.getMailTo());
             helper.setCc(email.toArray(new String[0]));
-            helper.setSubject("WebScraper Update");
-            helper.setText("The program successfully downloaded the CSV file and processed the data into the database.");
+            helper.setSubject(xmlMapperConfiguration.getMailSub());
+            helper.setText(xmlMapperConfiguration.getMailSuccessContent());
 
             javaMailSender.send(message);
         }catch (Exception e) {
@@ -45,8 +45,8 @@ public class MailContent {
 
             helper.setTo(xmlMapperConfiguration.getMailTo());
             helper.setCc(email.toArray(new String[0]));
-            helper.setSubject("WebScraper Update");
-            helper.setText("Program Failed to download csv from website");
+            helper.setSubject(xmlMapperConfiguration.getMailSub());
+            helper.setText(xmlMapperConfiguration.getMailErrorContent());
             javaMailSender.send(message);
         }catch (Exception e) {
             log.error("Error while send mail: {}", e.getMessage());
@@ -62,8 +62,8 @@ public class MailContent {
 
             helper.setTo(xmlMapperConfiguration.getMailTo());
             helper.setCc(email.toArray(new String[0]));
-            helper.setSubject("WebScraper Update");
-            helper.setText("Program Failed to update the data into database");
+            helper.setSubject(xmlMapperConfiguration.getMailSub());
+            helper.setText(xmlMapperConfiguration.getMailDBErrorContent());
 
             javaMailSender.send(message);
         }catch (Exception e) {
