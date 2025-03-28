@@ -1,6 +1,7 @@
 package com.nichiin.WebScraping.configuration;
 
 import jakarta.annotation.PostConstruct;
+import lombok.Getter;
 import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -10,6 +11,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 
 @Component
+@Getter
 public class XMLMapperConfiguration {
     private String dbUrl;
     private String dbUsername;
@@ -27,6 +29,10 @@ public class XMLMapperConfiguration {
     private boolean mailEnable;
     private String mailTo;
     private String mailCc;
+    private String mailSub;
+    private String mailSuccessContent;
+    private String mailErrorContent;
+    private String mailDBErrorContent;
 
     @PostConstruct
     public void loadConfig() {
@@ -61,73 +67,13 @@ public class XMLMapperConfiguration {
             mailEnable = Boolean.parseBoolean(values.getElementsByTagName("mail-enable").item(0).getTextContent());
             mailTo = values.getElementsByTagName("mail-to").item(0).getTextContent();
             mailCc = values.getElementsByTagName("mail-cc").item(0).getTextContent();
+            mailSub = values.getElementsByTagName("mail-sub").item(0).getTextContent();
+            mailSuccessContent = values.getElementsByTagName("mail-success-content").item(0).getTextContent();
+            mailErrorContent = values.getElementsByTagName("mail-error-content").item(0).getTextContent();
+            mailDBErrorContent = values.getElementsByTagName("mail-dberror-content").item(0).getTextContent();
 
         }catch (Exception e) {
             System.out.println(e.getMessage());
         }
-    }
-
-    public String getDbUrl() {
-        return dbUrl;
-    }
-
-    public String getDbUsername() {
-        return dbUsername;
-    }
-
-    public String getDbPassword() {
-        return dbPassword;
-    }
-
-    public String getDbDriver() {
-        return dbDriver;
-    }
-
-    public String getHibernateDialect() {
-        return hibernateDialect;
-    }
-
-    public String getDdlAuto() {
-        return ddlAuto;
-    }
-
-    public String getCustomCsvPath() {
-        return customCsvPath;
-    }
-
-    public String getMailHost() {
-        return mailHost;
-    }
-
-    public int getMailPort() {
-        return mailPort;
-    }
-
-    public String getMailUsername() {
-        return mailUsername;
-    }
-
-    public String getMailPassword() {
-        return mailPassword;
-    }
-
-    public String getMailProtocol() {
-        return mailProtocol;
-    }
-
-    public boolean getMailAuth() {
-        return mailAuth;
-    }
-
-    public boolean getMailEnable() {
-        return mailEnable;
-    }
-
-    public String getMailTo() {
-        return mailTo;
-    }
-
-    public String getMailCc() {
-        return mailCc;
     }
 }
