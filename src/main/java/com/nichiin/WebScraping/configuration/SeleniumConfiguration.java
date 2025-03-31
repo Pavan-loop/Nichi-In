@@ -17,12 +17,12 @@ import java.util.Map;
 @Slf4j
 public class SeleniumConfiguration {
 
-    private final XMLMapperConfiguration xmlMapperConfiguration;
+    private final CsvPathConfig csvPathConfig;
     private String customDownloadPath;
 
     @PostConstruct
     public void init() {
-        String customPath = xmlMapperConfiguration.getCustomCsvPath();
+        String customPath = csvPathConfig.getCustomCsvPath();
         this.customDownloadPath = System.getProperty("user.home") + customPath;
     }
 

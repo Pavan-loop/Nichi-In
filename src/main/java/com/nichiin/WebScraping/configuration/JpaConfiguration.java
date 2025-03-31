@@ -17,14 +17,15 @@ import java.util.Properties;
 public class JpaConfiguration {
 
     private final XMLMapperConfiguration xmlMapperConfiguration;
+    private final DBConfig dbConfig;
 
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setUrl(xmlMapperConfiguration.getDbUrl());
-        dataSource.setUsername(xmlMapperConfiguration.getDbUsername());
-        dataSource.setPassword(xmlMapperConfiguration.getDbPassword());
-        dataSource.setDriverClassName(xmlMapperConfiguration.getDbDriver());
+        dataSource.setUrl(dbConfig.getDbUrl());
+        dataSource.setUsername(dbConfig.getDbUsername());
+        dataSource.setPassword(dbConfig.getDbPassword());
+        dataSource.setDriverClassName(dbConfig.getDbDriver());
         return dataSource;
     }
 
@@ -36,8 +37,8 @@ public class JpaConfiguration {
         em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 
         Properties properties = new Properties();
-        properties.setProperty("hibernate.dialect", xmlMapperConfiguration.getHibernateDialect());
-        properties.setProperty("hibernate.hbm2ddl.auto", xmlMapperConfiguration.getDdlAuto());
+        properties.setProperty("hibernate.dialect", dbConfig.getHibernateDialect());
+        properties.setProperty("hibernate.hbm2ddl.auto", dbConfig.getDdlAuto());
         properties.setProperty("hibernate.show_sql", "true");
 
         em.setJpaProperties(properties);

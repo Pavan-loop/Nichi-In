@@ -1,5 +1,7 @@
 package com.nichiin.WebScraping.scheduler;
 
+import com.nichiin.WebScraping.configuration.CheckConfig;
+import com.nichiin.WebScraping.configuration.XMLMapperConfiguration;
 import com.nichiin.WebScraping.entity.Stocks;
 import com.nichiin.WebScraping.service.DownloadCsvService;
 import com.nichiin.WebScraping.service.ProcessToDatabase;
@@ -18,6 +20,7 @@ public class Manager {
     private final DownloadCsvService downloadCsvService;
     private final ReadCsvService readCsvService;
     private final ProcessToDatabase processToDatabase;
+    private final CheckConfig checkConfig;
 
 
     @PostConstruct

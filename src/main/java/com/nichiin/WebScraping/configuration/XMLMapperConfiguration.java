@@ -2,6 +2,7 @@ package com.nichiin.WebScraping.configuration;
 
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -12,27 +13,12 @@ import java.io.File;
 
 @Component
 @Getter
+@RequiredArgsConstructor
 public class XMLMapperConfiguration {
-    private String dbUrl;
-    private String dbUsername;
-    private String dbPassword;
-    private String dbDriver;
-    private String hibernateDialect;
-    private String ddlAuto;
-    private String customCsvPath;
-    private String mailHost;
-    private int mailPort;
-    private String mailUsername;
-    private String mailPassword;
-    private String mailProtocol;
-    private boolean mailAuth;
-    private boolean mailEnable;
-    private String mailTo;
-    private String mailCc;
-    private String mailSub;
-    private String mailSuccessContent;
-    private String mailErrorContent;
-    private String mailDBErrorContent;
+    private final CheckConfig check;
+    private final DBConfig dbConfig;
+    private final CsvPathConfig csvPathConfig;
+    private final MailConfig mailConfig;
 
     @PostConstruct
     public void loadConfig() {
@@ -49,28 +35,40 @@ public class XMLMapperConfiguration {
             System.out.println("File loaded successfully " + file.getAbsoluteFile());
 
             document.getDocumentElement().normalize();
-            Element values = (Element) document.getElementsByTagName("values").item(0);
+            Element dbValues = (Element) document.getElementsByTagName("db-config").item(0);
 
-            dbUrl = values.getElementsByTagName("url").item(0).getTextContent();
-            dbUsername = values.getElementsByTagName("username").item(0).getTextContent();
-            dbPassword = values.getElementsByTagName("password").item(0).getTextContent();
-            dbDriver = values.getElementsByTagName("driver-class-name").item(0).getTextContent();
-            hibernateDialect = values.getElementsByTagName("hibernate-dialect").item(0).getTextContent();
-            ddlAuto = values.getElementsByTagName("ddl-auto").item(0).getTextContent();
-            customCsvPath = values.getElementsByTagName("csv-path").item(0).getTextContent();
-            mailHost = values.getElementsByTagName("mail-host").item(0).getTextContent();
-            mailPort = Integer.parseInt(values.getElementsByTagName("mail-port").item(0).getTextContent());
-            mailUsername = values.getElementsByTagName("mail-username").item(0).getTextContent();
-            mailPassword = values.getElementsByTagName("mail-password").item(0).getTextContent();
-            mailProtocol = values.getElementsByTagName("mail-protocol").item(0).getTextContent();
-            mailAuth = Boolean.parseBoolean(values.getElementsByTagName("mail-auth").item(0).getTextContent());
-            mailEnable = Boolean.parseBoolean(values.getElementsByTagName("mail-enable").item(0).getTextContent());
-            mailTo = values.getElementsByTagName("mail-to").item(0).getTextContent();
-            mailCc = values.getElementsByTagName("mail-cc").item(0).getTextContent();
-            mailSub = values.getElementsByTagName("mail-sub").item(0).getTextContent();
-            mailSuccessContent = values.getElementsByTagName("mail-success-content").item(0).getTextContent();
-            mailErrorContent = values.getElementsByTagName("mail-error-content").item(0).getTextContent();
-            mailDBErrorContent = values.getElementsByTagName("mail-dberror-content").item(0).getTextContent();
+            dbConfig.setDBConfig(
+                    dbValues.getElementsByTagName("url").item(0).getTextContent(),
+                    dbValues.getElementsByTagName("username").item(0).getTextContent(),
+                    dbValues.getElementsByTagName("password").item(0).getTextContent(),
+                    dbValues.getElementsByTagName("driver-class-name").item(0).getTextContent(),
+                    dbValues.getElementsByTagName("hibernate-dialect").item(0).getTextContent(),
+                    dbValues.getElementsByTagName("ddl-auto").item(0).getTextContent()
+            );
+
+            Element csvPathValue = (Element) document.getElementsByTagName("csv-paths").item(0);
+
+            csvPathConfig.setCustomCsvPath(
+                    csvPathValue.getElementsByTagName("csv-path").item(0).getTextContent()
+            );
+
+            Element mailValues = (Element) document.getElementsByTagName("mail-config").item(0);
+
+            mailConfig.setMailConfig(
+                    mailValues.getElementsByTagName("mail-host").item(0).getTextContent(),
+                    Integer.parseInt(mailValues.getElementsByTagName("mail-port").item(0).getTextContent()),
+                    mailValues.getElementsByTagName("mail-username").item(0).getTextContent(),
+                    mailValues.getElementsByTagName("mail-password").item(0).getTextContent(),
+                    mailValues.getElementsByTagName("mail-protocol").item(0).getTextContent(),
+                    Boolean.parseBoolean(mailValues.getElementsByTagName("mail-auth").item(0).getTextContent()),
+                    Boolean.parseBoolean(mailValues.getElementsByTagName("mail-enable").item(0).getTextContent()),
+                    mailValues.getElementsByTagName("mail-to").item(0).getTextContent(),
+                    mailValues.getElementsByTagName("mail-cc").item(0).getTextContent(),
+                    mailValues.getElementsByTagName("mail-sub").item(0).getTextContent(),
+                    mailValues.getElementsByTagName("mail-success-content").item(0).getTextContent(),
+                    mailValues.getElementsByTagName("mail-error-content").item(0).getTextContent(),
+                    mailValues.getElementsByTagName("mail-dberror-content").item(0).getTextContent()
+            );
 
         }catch (Exception e) {
             System.out.println(e.getMessage());

@@ -1,5 +1,6 @@
 package com.nichiin.WebScraping.mail;
 
+import com.nichiin.WebScraping.configuration.MailConfig;
 import com.nichiin.WebScraping.configuration.XMLMapperConfiguration;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
@@ -16,19 +17,19 @@ import java.util.List;
 public class MailContent {
 
     private final JavaMailSender javaMailSender;
-    private final XMLMapperConfiguration xmlMapperConfiguration;
+    private final MailConfig mailConfig;
 
     public void sendSuccessMail() {
         try {
 
-            List<String> email = List.of(xmlMapperConfiguration.getMailCc().split(","));
+            List<String> email = List.of(mailConfig.getMailCc().split(","));
 
             MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            helper.setTo(xmlMapperConfiguration.getMailTo());
+            helper.setTo(mailConfig.getMailTo());
             helper.setCc(email.toArray(new String[0]));
-            helper.setSubject(xmlMapperConfiguration.getMailSub());
-            helper.setText(xmlMapperConfiguration.getMailSuccessContent());
+            helper.setSubject(mailConfig.getMailSub());
+            helper.setText(mailConfig.getMailSuccessContent());
 
             javaMailSender.send(message);
         }catch (Exception e) {
@@ -39,14 +40,14 @@ public class MailContent {
     public void sendDownloadFailedMail() {
         try {
 
-            List<String> email = List.of(xmlMapperConfiguration.getMailCc().split(","));
+            List<String> email = List.of(mailConfig.getMailCc().split(","));
             MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-            helper.setTo(xmlMapperConfiguration.getMailTo());
+            helper.setTo(mailConfig.getMailTo());
             helper.setCc(email.toArray(new String[0]));
-            helper.setSubject(xmlMapperConfiguration.getMailSub());
-            helper.setText(xmlMapperConfiguration.getMailErrorContent());
+            helper.setSubject(mailConfig.getMailSub());
+            helper.setText(mailConfig.getMailErrorContent());
             javaMailSender.send(message);
         }catch (Exception e) {
             log.error("Error while send mail: {}", e.getMessage());
@@ -55,15 +56,15 @@ public class MailContent {
 
     public void sendDatabaseFailedMail() {
         try {
-            List<String> email = List.of(xmlMapperConfiguration.getMailCc().split(","));
+            List<String> email = List.of(mailConfig.getMailCc().split(","));
 
             MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-            helper.setTo(xmlMapperConfiguration.getMailTo());
+            helper.setTo(mailConfig.getMailTo());
             helper.setCc(email.toArray(new String[0]));
-            helper.setSubject(xmlMapperConfiguration.getMailSub());
-            helper.setText(xmlMapperConfiguration.getMailDBErrorContent());
+            helper.setSubject(mailConfig.getMailSub());
+            helper.setText(mailConfig.getMailDBErrorContent());
 
             javaMailSender.send(message);
         }catch (Exception e) {
